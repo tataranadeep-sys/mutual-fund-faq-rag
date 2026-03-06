@@ -89,16 +89,29 @@ def chatbot(question):
 
 with st.form("question_form", clear_on_submit=True):
 
+# Initialize chat history
+if "history" not in st.session_state:
+    st.session_state.history = []
+
+# Input form
+with st.form("question_form", clear_on_submit=True):
+
     question = st.text_input("Ask a question about mutual funds")
 
     submit = st.form_submit_button("Ask")
 
+# When user asks a question
 if submit and question:
 
     answer = chatbot(question)
 
-    st.write("Answer:")
-    st.write(answer)
+    st.session_state.history.append((question, answer))
+
+# Display conversation
+for q, a in st.session_state.history:
+    st.write("**User:**", q)
+    st.write("**Assistant:**", a)
+    st.write("---")
 
 st.write("---")
 st.write("Disclaimer: This assistant provides factual information from official public sources only. It does not provide investment advice.")
