@@ -9,7 +9,6 @@ st.title("Mutual Fund FAQ Assistant")
 st.write("Facts-only. No investment advice.")
 
 st.write("Example questions you can try:")
-
 st.write("• What is the expense ratio of SBI Bluechip Fund?")
 st.write("• What is the ELSS lock-in period?")
 st.write("• How can I download my capital gains statement?")
@@ -51,7 +50,6 @@ for doc in documents:
         chunks.append(doc[i:i+500])
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
-
 embeddings = model.encode(chunks)
 
 def search(question):
@@ -73,7 +71,6 @@ def chatbot(question):
             )
 
     result = search(question)
-
     answer = result[:300]
 
     return (
@@ -83,24 +80,29 @@ def chatbot(question):
     )
 
 # Initialize chat history
-if "history" not in st.session_state:
-    st.session_state.history = []
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
-# Input form
-with st.form("question_form", clear_on_submit=True):
-    question = st.text_input("Ask a question about mutual funds")
-    submit = st.form_submit_button("Ask")
+# Display previous chat messages
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
-# Process question
-if submit and question:
-    answer = chatbot(question)
-    st.session_state.history.append((question, answer))
+# Chat input box
+prompt = st.chat_input("Ask a question about mutual funds")
 
-# Display conversation history
-for q, a in st.session_state.history:
-    st.write("**User:**", q)
-    st.write("**Assistant:**", a)
-    st.write("---")
+if prompt:
+    # Show user message
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+    # Generate assistant response
+    answer = chatbot(prompt)
+
+    st.session_state.messages.append({"role": "assistant", "content": answer})
+    with st.chat_message("assistant"):
+        st.markdown(answer)
 
 st.write("---")
 st.write("Disclaimer: This assistant provides factual information from official public sources only. It does not provide investment advice.")
