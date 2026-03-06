@@ -70,7 +70,7 @@ def chatbot(question):
 
     answer = result[:300]
 
-   return (
+    return (
     f"{answer}...\n\n"
     "Source: https://www.sbimf.com/en-us/individual-schemes/sbi-bluechip-fund\n"
     "Last updated from sources: 2026"
