@@ -96,18 +96,25 @@ if "history" not in st.session_state:
 # Input form
 with st.form("question_form", clear_on_submit=True):
 
+# Initialize chat history
+if "history" not in st.session_state:
+    st.session_state.history = []
+
+# Input form
+with st.form("question_form", clear_on_submit=True):
+
     question = st.text_input("Ask a question about mutual funds")
 
     submit = st.form_submit_button("Ask")
 
-# When user asks a question
+# Process question
 if submit and question:
 
     answer = chatbot(question)
 
     st.session_state.history.append((question, answer))
 
-# Display conversation
+# Show conversation history
 for q, a in st.session_state.history:
     st.write("**User:**", q)
     st.write("**Assistant:**", a)
