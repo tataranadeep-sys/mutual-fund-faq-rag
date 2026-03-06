@@ -66,10 +66,10 @@ def search(question):
 
 def chatbot(question):
 
-  blocked_words = ["buy", "sell", "invest", "recommend", "best", "should i"]
+    blocked_words = ["buy", "sell", "invest", "recommend", "best", "should i"]
 
     for word in blocked_words:
-        if word.lower() in question.lower():
+        if word in question.lower():
             return (
                 "I provide factual information only and cannot give investment advice. "
                 "Please refer to the official scheme documents.\n\n"
@@ -82,10 +82,10 @@ def chatbot(question):
     answer = result[:300]
 
     return (
-    f"{answer}...\n\n"
-    "Source: https://www.sbimf.com/en-us/individual-schemes/sbi-bluechip-fund\n"
-    "Last updated from sources: 2026"
-)
+        f"{answer}...\n\n"
+        "Source: https://www.sbimf.com/en-us/individual-schemes/sbi-bluechip-fund\n"
+        "Last updated from sources: 2026"
+    )
 
 question = st.text_input("Ask a question about mutual funds")
 
