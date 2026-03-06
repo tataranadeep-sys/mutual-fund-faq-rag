@@ -8,6 +8,12 @@ st.title("Mutual Fund FAQ Assistant")
 
 st.write("Facts-only. No investment advice.")
 
+st.write("Example questions you can try:")
+
+st.write("• What is the expense ratio of SBI Bluechip Fund?")
+st.write("• What is the ELSS lock-in period?")
+st.write("• How can I download my capital gains statement?")
+
 urls = [
 "https://www.sbimf.com/en-us/individual-schemes/sbi-bluechip-fund",
 "https://www.sbimf.com/en-us/individual-schemes/sbi-flexicap-fund",
