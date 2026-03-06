@@ -55,15 +55,26 @@ def search(question):
 
 def chatbot(question):
 
-    blocked_words = ["buy","sell","invest","recommend","best"]
+    blocked_words = ["buy", "sell", "invest", "recommend", "best", "should I"]
 
     for word in blocked_words:
-        if word in question.lower():
-            return "I provide factual information only. I cannot give investment advice. Please refer to official mutual fund documents."
+        if word.lower() in question.lower():
+            return (
+                "I provide factual information only and cannot give investment advice. "
+                "Please refer to the official scheme documents.\n\n"
+                "Source: https://www.amfiindia.com\n"
+                "Last updated from sources: 2026"
+            )
 
     result = search(question)
 
-    return result[:400]
+    answer = result[:300]
+
+    return (
+        f"{answer}...\n\n"
+        "Source: Official AMC / SEBI / AMFI page\n"
+        "Last updated from sources: 2026"
+    )
 
 question = st.text_input("Ask a question about mutual funds")
 
